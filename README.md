@@ -1,6 +1,7 @@
 perl練習用のリポジトリです
 
 以下は作業時に使用する。  
+
 ドキュメントの参照
 * perldoc perlre：正規表現のドキュメント
 * perldoc perlsyn：文法のドキュメント
