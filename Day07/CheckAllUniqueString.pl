@@ -12,13 +12,22 @@ checkUnique(@data);
 sub checkUnique {
   # ソートしてから設定する
   my @list = sort @_;
-  $count = @list;
+  my $count = @list;
+  my $rtn;
   for ($i = 0; $i < $count; $i++) {
-    checkUniqueImpl("@list[$i]");
+    $rtn = checkUniqueImpl("@list[$i]");
+    if ($rtn == "Unique") {
+      last;
+    }
   }
+  print "rtn:$rtn", "\n";
 }
 sub checkUniqueImpl {
-  $tmpStr = $_[0];
-  print "$tmpStr", "\n";
+  my $input = $_[0];
+  if ($input == $tmpStr) {
+    "Unique";
+  } else {
+    $tmpStr = $_[0];
+  }
 }
 
