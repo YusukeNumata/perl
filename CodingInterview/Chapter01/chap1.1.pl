@@ -1,33 +1,64 @@
-# テストデータ
-@data = ('aaa', 'bbb', 'ccc', 'aaa');
+use strict;
+use warnings;
+use String::Random;
 
-# データ出力
-print "@data", "\n";
+for (my $i = 0; $i < 10; $i++) {
+  main();
+}
 
-#
-$tmpStr = '';
-checkUnique(@data);
+sub main {
+  #テストデータ（ランダム）
+  my $StrRand = String::Random->new();
+  my $str = $StrRand->randregex('[a-zA-Z0-9]{6}');
+  #重複文字の確認
+  my $rtn = isUnique($str);
+  #結果を出力
+  print "Data:$str -> $rtn ", "\n";
+}
 
-# チェック実施
-sub checkUnique {
-  # ソートしてから設定する
-  my @list = sort @_;
-  my $count = @list;
-  my $rtn;
-  for ($i = 0; $i < $count; $i++) {
-    $rtn = checkUniqueImpl("@list[$i]");
-    if ($rtn == "Unique") {
-      last;
+#重複文字の確認処理
+sub isUnique {
+  my $input = $_[0];
+  my @list = sort split //, $input;
+  my $ch = "";
+  my $ch_befor = "";
+  foreach $ch (@list) {
+    if ($ch eq $ch_befor) {
+      return "true";
+    } else {
+      $ch_befor = $ch;
     }
   }
-  print "rtn:$rtn", "\n";
+  return "false";
 }
-sub checkUniqueImpl {
-  my $input = $_[0];
-  if ($input == $tmpStr) {
-    "Unique";
-  } else {
-    $tmpStr = $_[0];
-  }
-}
+
+# データ出力
+#print "@data", "\n";
+
+#
+#$tmpStr = '';
+#checkUnique(@data);
+
+# チェック実施
+#sub checkUnique {
+#  # ソートしてから設定する
+#  my @list = sort @_;
+#  my $count = @list;
+#  my $rtn;
+#  for ($i = 0; $i < $count; $i++) {
+#    $rtn = checkUniqueImpl("@list[$i]");
+#    if ($rtn == "Unique") {
+#      last;
+#    }
+#  }
+#  print "rtn:$rtn", "\n";
+#}
+#sub checkUniqueImpl {
+#  my $input = $_[0];
+#  if ($input == $tmpStr) {
+#    "Unique";
+#  } else {
+#    $tmpStr = $_[0];
+#  }
+#}
 
